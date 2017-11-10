@@ -1,9 +1,7 @@
-import { ParserInterface } from '../biesbjerg-ngx-translate-extract';
-import { } from '@biesbjerg/ngx-translate-extract';
-import { AbstractTemplateParser } from './abstract-template.parser';
+import { AbstractTemplateParser, ParserInterface } from '../biesbjerg-ngx-translate-extract';
 
 import * as $ from 'cheerio';
-import { ExtendedTranslationCollection } from '../ExtendedTranslationCollection ';
+import { ExtendedTranslationCollection } from '../ExtendedTranslationCollection';
 import { TranslationMeta } from '../TranslationMeta';
 
 export class I18nParser extends AbstractTemplateParser implements ParserInterface {

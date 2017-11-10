@@ -92,7 +92,7 @@ gulp.task('jsdoc', 'Generates jsdoc', function (done) {
 });
 
 gulp.task('build', 'Builds source code: validates it and provides an artifacts', function (done) {
-  sequence('lint', 'test', 'compile', 'jsdoc', done);
+  sequence('compile', done);
 });
 
 gulp.task('pre-commit', 'Being run automatically on a git pre-commit hook', ['build']);

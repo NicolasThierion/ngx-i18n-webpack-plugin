@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as PATH from 'path';
 import { CompilerInterface } from './biesbjerg-ngx-translate-extract';
 import { CompilerFactory } from './compiler.factory';
-import { ExtendedTranslationCollection } from './ExtendedTranslationCollection ';
+import { ExtendedTranslationCollection } from './ExtendedTranslationCollection';
 
 /**
  * Get all files in dir matching patterns

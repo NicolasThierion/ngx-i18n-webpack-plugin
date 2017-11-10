@@ -10,7 +10,7 @@ import * as fs from 'fs';
 import { I18nParser } from './parsers/I18nParser';
 import { CompilerInterface } from '@biesbjerg/ngx-translate-extract';
 import { CompilerFactory } from './compiler.factory';
-import { ExtendedTranslationCollection } from './ExtendedTranslationCollection ';
+import { ExtendedTranslationCollection } from './ExtendedTranslationCollection';
 
 export interface NgxOptions extends ExtractTaskOptionsInterface {
   input?: string[];
@@ -45,15 +45,17 @@ export class NgxTranslateExtractor {
     if (this.options.format !== 'po' && this.options.format !== 'json') {
       throw new TypeError(`invalid format : ${options.format}. Valid format are json, po`);
     }
-
-    this._parsers = [
-      new PipeParser(),
-      new DirectiveParser(),
-      new ServiceParser(),
-      new I18nParser()
-    ];
-
+    this.setParsers([
+        new PipeParser(),
+        new DirectiveParser(),
+        new ServiceParser(),
+        new I18nParser()
+    ]);
     this._compiler = CompilerFactory.create(this.options.format, {})
+  }
+
+  setParsers(parsers: ParserInterface[]) {
+      this._parsers = parsers;
   }
 
   public execute(filenames?: string[]) {

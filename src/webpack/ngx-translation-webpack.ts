@@ -1,9 +1,11 @@
-import { Compiler, Plugin } from 'webpack';
+import { Plugin, Compiler } from 'webpack';
 import { NgxTranslateExtractor } from '../NgxTranslateExtractor';
 import * as _ from 'lodash';
 import { NgxTranslateMerger } from '../NgxTranslateMerger';
 import { ExtractorPlugin } from './ExtractorPlugin';
 import { MergerPlugin } from './MergerPlugin';
+import { DirectiveParser, PipeParser,ServiceParser } from '../biesbjerg-ngx-translate-extract';
+import { I18nParser } from '../parsers/I18nParser';
 
 /**
  *
@@ -25,33 +27,25 @@ export namespace TranslatePlugin {
   /**
    * Offers extraction of translations from HTML & JS, when compiling the sources.
    */
-  export class Extractor {
-    public html: Plugin;
-    public js: Plugin;
-    public ts: Plugin;
+  export class Extractor implements Plugin {
+    public extractor: Plugin;
 
     constructor(options: ExtractorOptions = {}) {
-      this.html = new ExtractorPlugin(new NgxTranslateExtractor(_.merge(options, {
-        patterns: ['/**/*.html']
-      })));
+      this.extractor = new ExtractorPlugin(
+        new NgxTranslateExtractor(
+          _.defaults({}, {
+            patterns: ['/**/*.html', '/**/*.ts', '/**/*.js']
+          }, options),
+        ), [
+          new PipeParser(),
+          new DirectiveParser(),
+          new ServiceParser(),
+          new I18nParser()]
+      );
+    }
 
-      this.js = {
-        apply: (compiler: Compiler) => {
-          compiler.plugin('compile', compilation => {
-            // TODO extract translations from JS.
-            throw new Error('not implemented')
-          });
-        }
-      };
-
-      this.ts = {
-        apply: (compiler: Compiler) => {
-          compiler.plugin('compile', compilation => {
-            // TODO extract translations from TS.
-            throw new Error('not implemented')
-          });
-        }
-      };
+    apply(compiler: Compiler): void {
+      this.extractor.apply(compiler)
     }
   }
 

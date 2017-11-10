@@ -1,5 +1,5 @@
 import { PoCompiler as NgxPoCompiler } from './biesbjerg-ngx-translate-extract';
-import { ExtendedTranslationCollection } from './ExtendedTranslationCollection ';
+import { ExtendedTranslationCollection } from './ExtendedTranslationCollection';
 import { TranslationMeta } from './TranslationMeta';
 import * as gettext from 'gettext-parser';
 import * as _ from 'lodash';

@@ -2,7 +2,7 @@ import * as _ from 'lodash';
 import { readDir, save } from './utils';
 import * as globToRegExp from 'glob-to-regexp'
 import { CompilerFactory } from './compiler.factory';
-import { ExtendedTranslationCollection } from './ExtendedTranslationCollection ';
+import { ExtendedTranslationCollection } from './ExtendedTranslationCollection';
 import { CompilerInterface } from './biesbjerg-ngx-translate-extract';
 import * as fs from 'fs';
 import * as path from 'path';

@@ -2,6 +2,7 @@ import * as globToRegExp from 'glob-to-regexp'
 import { Compiler, Plugin } from 'webpack';
 import { NgxTranslateExtractor } from '../NgxTranslateExtractor';
 import { readDir } from '../utils';
+import { ParserInterface } from '../biesbjerg-ngx-translate-extract';
 
 /**
  * Webpack plugin that extracts translation from any file, using NgxTranslateExtractor.
@@ -11,8 +12,11 @@ export class ExtractorPlugin implements Plugin {
   private compiled: boolean;
   private fileTimestamps = {};
 
-  constructor(extractor: NgxTranslateExtractor) {
+  constructor(extractor: NgxTranslateExtractor, parsers?: ParserInterface[]) {
     this.extractor = extractor;
+    if (parsers) {
+      this.extractor.setParsers(parsers);
+    }
   }
 
   apply(compiler: Compiler) {
